@@ -6,26 +6,26 @@ import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: {
-    default: "California Ice Cream Trail — 27 Essential Scoops",
-    template: "%s | California Ice Cream Trail",
+    default: "The Golden Scoop — California's 69 Best Ice Cream Flavors",
+    template: "%s | The Golden Scoop",
   },
   description:
-    "Discover the 27 most iconic ice cream shops and flavors in California. From San Francisco Mission creameries to LA's Persian bastani to San Diego's century-old scooperies.",
-  keywords: ["California ice cream", "best ice cream California", "ice cream trail", "artisan creamery"],
+    "California's 69 best ice cream flavors, curated by taste. From San Francisco's Mission District to San Diego's coast — find the scoop worth crossing the state for.",
+  keywords: ["California ice cream", "best ice cream California", "California ice cream guide", "artisan creamery", "top ice cream flavors"],
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://californiaicecreamtrail.com",
-    siteName: "California Ice Cream Trail",
-    title: "California Ice Cream Trail — 27 Essential Scoops",
+    siteName: "The Golden Scoop",
+    title: "The Golden Scoop — California's 69 Best Ice Cream Flavors",
     description:
-      "Discover the 27 most iconic ice cream shops and flavors in California.",
+      "California's 69 best ice cream flavors, curated by taste. Find the scoop worth crossing the state for.",
     images: [{ url: "/og-default.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "California Ice Cream Trail",
-    description: "27 essential scoops across the Golden State.",
+    title: "The Golden Scoop",
+    description: "California's 69 best ice cream flavors, curated by taste.",
     images: ["/og-default.jpg"],
   },
   metadataBase: new URL("https://californiaicecreamtrail.com"),

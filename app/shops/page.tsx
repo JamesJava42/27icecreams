@@ -8,9 +8,9 @@ import { CRAVING_OPTIONS } from "@/lib/cravings"
 import type { IceCreamItem, Category, Vibe } from "@/lib/types"
 
 export const metadata: Metadata = {
-  title: "Explore All 27 Shops",
+  title: "Explore All Shops — The Golden Scoop",
   description:
-    "Browse all 27 stops on the California Ice Cream Trail. Search, filter by region and vibe, and sort to find your perfect shop.",
+    "Browse all 27 Golden Scoop shops across California. Search by flavor, filter by region and vibe, and sort to find your perfect scoop.",
 }
 
 interface Props {

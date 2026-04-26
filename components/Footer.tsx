@@ -9,22 +9,22 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-3">
               <IceCream className="w-5 h-5 text-[#E85D75]" />
-              <span className="font-serif text-white font-bold text-lg">California Ice Cream Trail</span>
+              <span className="font-serif text-white font-bold text-lg">The Golden Scoop</span>
             </div>
             <p className="text-sm leading-relaxed text-[#B09A8A] max-w-sm">
-              Go from craving to choice in under a minute. 27 iconic California ice cream shops,
-              curated by flavor, region, and use case — free to explore.
+              California&#39;s 69 best ice cream flavors, curated by taste. From San Francisco&#39;s
+              Mission District to San Diego&#39;s coast — find the scoop worth crossing the state for.
             </p>
           </div>
 
           <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-3">Explore</h3>
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-3">Discover</h3>
             <ul className="space-y-2 text-sm">
               {[
                 { href: "/shops", label: "Explore Shops" },
+                { href: "/trail", label: "The 69 List" },
                 { href: "/quiz", label: "Find My Scoop" },
                 { href: "/map", label: "Interactive Map" },
-                { href: "/trail", label: "Shop Tracker" },
                 { href: "/blog", label: "Guides & Stories" },
                 { href: "/about", label: "About" },
               ].map((l) => (
@@ -56,8 +56,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-[#3D2A1A] mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-[#7A6050]">
-          <p>© {new Date().getFullYear()} California Ice Cream Trail. All rights reserved.</p>
-         
+          <p>© {new Date().getFullYear()} The Golden Scoop. All rights reserved.</p>
         </div>
       </div>
     </footer>

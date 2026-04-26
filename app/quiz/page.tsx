@@ -3,7 +3,7 @@ import { getAllShops } from "@/lib/shops"
 import FlavorQuiz from "@/components/FlavorQuiz"
 
 export const metadata: Metadata = {
-  title: "Find My Scoop — California Ice Cream Trail",
+  title: "Find My Scoop — The Golden Scoop",
   description:
     "Answer 4 quick questions and get 3 personalized California ice cream shop recommendations matched to your craving. Takes under a minute.",
 }

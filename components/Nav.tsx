@@ -8,7 +8,7 @@ import { Menu, X, IceCream } from "lucide-react"
 const links = [
   { href: "/shops", label: "Explore" },
   { href: "/map", label: "Map" },
-  { href: "/trail", label: "Tracker" },
+  { href: "/trail", label: "The 69 List" },
   { href: "/quiz", label: "Find My Scoop" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
@@ -23,8 +23,8 @@ export default function Nav() {
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-bold text-[#2C1A0E] text-lg">
           <IceCream className="w-6 h-6 text-[#E85D75]" />
-          <span className="font-serif hidden sm:inline">California Ice Cream Trail</span>
-          <span className="font-serif sm:hidden">CA Ice Cream Trail</span>
+          <span className="font-serif hidden sm:inline">The Golden Scoop</span>
+          <span className="font-serif sm:hidden">Golden Scoop</span>
         </Link>
 
         {/* Desktop nav */}

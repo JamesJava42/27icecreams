@@ -5,7 +5,7 @@ import { getAllBlogPosts } from "@/lib/blog"
 
 export const metadata: Metadata = {
   title: "Blog — Stories, Guides & Local Finds",
-  description: "City-by-city ice cream guides, craving-driven itineraries, and seasonal flavor reports from the California Ice Cream Trail.",
+  description: "City-by-city ice cream guides, craving-driven itineraries, and seasonal flavor reports from The Golden Scoop.",
 }
 
 export default function BlogPage() {
