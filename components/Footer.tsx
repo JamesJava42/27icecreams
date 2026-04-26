@@ -12,8 +12,8 @@ export default function Footer() {
               <span className="font-serif text-white font-bold text-lg">California Ice Cream Trail</span>
             </div>
             <p className="text-sm leading-relaxed text-[#B09A8A] max-w-sm">
-              27 essential ice cream stops across the Golden State. From century-old institutions to
-              liquid nitrogen innovators — this is California&#39;s scoop story.
+              Go from craving to choice in under a minute. 27 iconic California ice cream shops,
+              curated by flavor, region, and use case — free to explore.
             </p>
           </div>
 
@@ -21,11 +21,12 @@ export default function Footer() {
             <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-3">Explore</h3>
             <ul className="space-y-2 text-sm">
               {[
-                { href: "/shops", label: "All 27 Stops" },
+                { href: "/shops", label: "Explore Shops" },
+                { href: "/quiz", label: "Find My Scoop" },
                 { href: "/map", label: "Interactive Map" },
-                { href: "/trail", label: "Trail Tracker" },
-                { href: "/quiz", label: "Flavor Quiz" },
-                { href: "/blog", label: "Blog" },
+                { href: "/trail", label: "Shop Tracker" },
+                { href: "/blog", label: "Guides & Stories" },
+                { href: "/about", label: "About" },
               ].map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="hover:text-[#E85D75] transition-colors">

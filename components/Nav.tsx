@@ -6,11 +6,12 @@ import { useState } from "react"
 import { Menu, X, IceCream } from "lucide-react"
 
 const links = [
-  { href: "/shops", label: "The Trail" },
+  { href: "/shops", label: "Explore" },
   { href: "/map", label: "Map" },
-  { href: "/trail", label: "Track Progress" },
-  { href: "/quiz", label: "Flavor Quiz" },
+  { href: "/trail", label: "Tracker" },
+  { href: "/quiz", label: "Find My Scoop" },
   { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
 ]
 
 export default function Nav() {

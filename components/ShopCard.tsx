@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { MapPin, Star } from "lucide-react"
 import type { IceCreamItem } from "@/lib/types"
+import { getUseCaseTags } from "@/lib/cravings"
 
 interface Props {
   shop: IceCreamItem
@@ -40,12 +41,12 @@ export default function ShopCard({ shop, visited }: Props) {
       <div className="p-5">
         <div className="flex items-start justify-between gap-2 mb-2">
           <div>
-            <p className="text-xs font-semibold text-[#8B5E3C] uppercase tracking-wide mb-1">
-              {shop.shop}
-            </p>
             <h3 className="font-serif text-lg font-bold text-[#2C1A0E] leading-tight group-hover:text-[#E85D75] transition-colors">
-              {shop.name}
+              {shop.shop}
             </h3>
+            <p className="text-xs text-[#8B5E3C] mt-0.5">
+              Signature: {shop.name}
+            </p>
           </div>
           <span className="text-sm font-bold text-[#8B5E3C] shrink-0">{shop.priceRange}</span>
         </div>
@@ -70,6 +71,14 @@ export default function ShopCard({ shop, visited }: Props) {
               className="text-xs bg-[#F2E8DC] text-[#5C3317] px-2 py-0.5 rounded-full"
             >
               {cat}
+            </span>
+          ))}
+          {getUseCaseTags(shop).map((tag) => (
+            <span
+              key={tag}
+              className="text-xs bg-[#FFF0F3] text-[#E85D75] border border-[#F9A8B7] px-2 py-0.5 rounded-full"
+            >
+              {tag}
             </span>
           ))}
         </div>

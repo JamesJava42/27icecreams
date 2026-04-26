@@ -50,7 +50,7 @@ export default function TrailTracker({ shops }: Props) {
     const count = visited.size
     const total = shops.length
     const badge = getBadge(count, total)
-    const text = `I've visited ${count}/${total} stops on the California Ice Cream Trail! ${badge.emoji} ${badge.title} — californiaicecreamtrail.com/trail`
+    const text = `I've been to ${count} of ${total} iconic California ice cream shops! ${badge.emoji} ${badge.title} — californiaicecreamtrail.com/trail`
     try {
       if (navigator.share) {
         await navigator.share({ text, url: "https://californiaicecreamtrail.com/trail" })
@@ -66,6 +66,12 @@ export default function TrailTracker({ shops }: Props) {
   const total = shops.length
   const pct = Math.round((count / total) * 100)
   const badge = getBadge(count, total)
+
+  const REGION_LABELS: Record<string, string> = {
+    NorCal: "Northern California",
+    SoCal: "Southern California",
+    Central: "Central Valley",
+  }
 
   const byRegion = {
     NorCal: shops.filter((s) => s.region === "NorCal"),
@@ -97,7 +103,7 @@ export default function TrailTracker({ shops }: Props) {
             style={{ width: `${pct}%` }}
           />
         </div>
-        <p className="text-xs text-[#7A6050] mt-2">{pct}% of the Trail complete</p>
+        <p className="text-xs text-[#7A6050] mt-2">{pct}% of all California shops visited</p>
 
         <button
           onClick={share}
@@ -113,9 +119,9 @@ export default function TrailTracker({ shops }: Props) {
       {(Object.entries(byRegion) as [string, IceCreamItem[]][]).map(([region, regionShops]) => (
         <div key={region}>
           <h3 className="font-serif text-xl font-bold text-[#2C1A0E] mb-4 flex items-center gap-2">
-            {region}
+            {REGION_LABELS[region]}
             <span className="text-sm font-normal text-[#8B5E3C]">
-              ({regionShops.filter((s) => visited.has(s.slug)).length}/{regionShops.length})
+              {regionShops.filter((s) => visited.has(s.slug)).length}/{regionShops.length} visited
             </span>
           </h3>
           <div className="space-y-2">
@@ -137,9 +143,9 @@ export default function TrailTracker({ shops }: Props) {
                     <Circle className="w-5 h-5 text-[#D0B8A8] shrink-0" />
                   )}
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-sm text-[#2C1A0E] truncate">{shop.name}</p>
+                    <p className="font-semibold text-sm text-[#2C1A0E] truncate">{shop.shop}</p>
                     <p className="text-xs text-[#8B5E3C]">
-                      {shop.shop} · {shop.city}
+                      {shop.name} · {shop.city}
                     </p>
                   </div>
                   <span className="text-xs text-[#8B5E3C] shrink-0">{shop.priceRange}</span>

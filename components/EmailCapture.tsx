@@ -11,8 +11,8 @@ interface Props {
 
 export default function EmailCapture({
   variant = "card",
-  title = "Get the Trail Newsletter",
-  description = "New shops, seasonal flavor alerts, and road trip itineraries — straight to your inbox.",
+  title = "Get Craving Alerts",
+  description = "New shops, seasonal flavor drops, and the best California ice cream finds — delivered to your inbox.",
 }: Props) {
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
@@ -63,7 +63,7 @@ export default function EmailCapture({
           disabled={status === "loading"}
           className="px-4 py-2 bg-[#E85D75] text-white rounded-xl font-semibold text-sm hover:bg-[#d14d65] transition-colors disabled:opacity-60"
         >
-          {status === "loading" ? "..." : "Subscribe"}
+          {status === "loading" ? "..." : "Notify Me"}
         </button>
       </form>
     )
@@ -92,7 +92,7 @@ export default function EmailCapture({
           disabled={status === "loading"}
           className="px-6 py-3 bg-[#E85D75] text-white rounded-xl font-bold text-sm hover:bg-[#d14d65] transition-colors disabled:opacity-60 whitespace-nowrap"
         >
-          {status === "loading" ? "Subscribing..." : "Get Updates"}
+          {status === "loading" ? "Sending..." : "Get Craving Alerts"}
         </button>
       </form>
       {status === "error" && (

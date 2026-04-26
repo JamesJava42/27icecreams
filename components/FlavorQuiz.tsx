@@ -14,40 +14,40 @@ interface Question {
 const questions: Question[] = [
   {
     id: "flavor",
-    text: "What's your flavor soul?",
+    text: "Right now, I'm craving...",
     options: [
-      { label: "Fruity & bright", value: "fruity", emoji: "🍓" },
-      { label: "Chocolate everything", value: "chocolate", emoji: "🍫" },
-      { label: "Nuts & caramel", value: "nutty", emoji: "🥜" },
-      { label: "Weird & wonderful", value: "unique", emoji: "✨" },
+      { label: "Something fruity & refreshing", value: "fruity", emoji: "🍓" },
+      { label: "Rich, deep chocolate", value: "chocolate", emoji: "🍫" },
+      { label: "Nutty, caramel, indulgent", value: "nutty", emoji: "🥜" },
+      { label: "Surprise me — something unexpected", value: "unique", emoji: "✨" },
     ],
   },
   {
     id: "region",
-    text: "Which part of California speaks to you?",
+    text: "Where are you (or where are you going)?",
     options: [
-      { label: "Bay Area & Wine Country", value: "NorCal", emoji: "🌉" },
-      { label: "LA & San Diego", value: "SoCal", emoji: "🌴" },
-      { label: "No preference — surprise me", value: "any", emoji: "🗺️" },
+      { label: "Bay Area / NorCal", value: "NorCal", emoji: "🌉" },
+      { label: "LA / San Diego / SoCal", value: "SoCal", emoji: "🌴" },
+      { label: "Anywhere — just find me the best", value: "any", emoji: "🗺️" },
     ],
   },
   {
     id: "era",
-    text: "Do you prefer your ice cream...",
+    text: "What kind of ice cream experience do you want?",
     options: [
-      { label: "Time-tested classic", value: "Classic", emoji: "🏛️" },
-      { label: "Cult favorite with a story", value: "Cult", emoji: "🔮" },
-      { label: "Modern & inventive", value: "Modern", emoji: "🔬" },
-      { label: "Historic institution", value: "Historic", emoji: "📜" },
+      { label: "A classic I can trust", value: "Classic", emoji: "🏛️" },
+      { label: "A cult shop with a story", value: "Cult", emoji: "🔮" },
+      { label: "Something modern & inventive", value: "Modern", emoji: "🔬" },
+      { label: "A historic California institution", value: "Historic", emoji: "📜" },
     ],
   },
   {
     id: "dairy",
-    text: "Dairy situation?",
+    text: "Any dietary preference?",
     options: [
-      { label: "Full cream, no compromises", value: "cream", emoji: "🥛" },
-      { label: "Dairy-free options welcome", value: "dairy-free", emoji: "🌱" },
-      { label: "Gelato (lower fat, denser)", value: "gelato", emoji: "🇮🇹" },
+      { label: "Full dairy — give me the real stuff", value: "cream", emoji: "🥛" },
+      { label: "Dairy-free options are a plus", value: "dairy-free", emoji: "🌱" },
+      { label: "I love a good gelato", value: "gelato", emoji: "🇮🇹" },
     ],
   },
 ]
@@ -102,39 +102,66 @@ export default function FlavorQuiz({ shops }: Props) {
         <div className="text-center">
           <p className="text-[#8B5E3C] text-sm mb-2">Your personalized picks</p>
           <h2 className="font-serif text-3xl font-bold text-[#2C1A0E]">
-            Your 3 Perfect Scoops 🍦
+            Your 3 Perfect Shops 🍦
           </h2>
+          <p className="text-sm text-[#8B5E3C] mt-1">Based on your answers</p>
         </div>
 
         <div className="grid gap-4">
-          {results.map((shop, i) => (
-            <Link
-              key={shop.slug}
-              href={`/shops/${shop.slug}`}
-              className="flex items-center gap-4 bg-white border border-[#E0CEBC] hover:border-[#E85D75] rounded-2xl p-5 transition-colors group"
-            >
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E85D75] to-[#F4845F] flex items-center justify-center text-white font-bold text-lg shrink-0">
-                {i + 1}
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs text-[#8B5E3C] font-semibold mb-0.5">{shop.shop}</p>
-                <h3 className="font-serif font-bold text-[#2C1A0E] group-hover:text-[#E85D75] transition-colors">
-                  {shop.name}
-                </h3>
-                <p className="text-xs text-[#8B5E3C]">{shop.city} · {shop.region}</p>
-              </div>
-              <ChevronRight className="w-5 h-5 text-[#D0B8A8] group-hover:text-[#E85D75] shrink-0 transition-colors" />
-            </Link>
-          ))}
+          {results.map((shop, i) => {
+            const reasons: string[] = []
+            if (answers.flavor && shop.vibes.includes(answers.flavor as Vibe))
+              reasons.push(`${answers.flavor} flavors`)
+            if (answers.region && answers.region !== "any" && shop.region === answers.region)
+              reasons.push(`${answers.region} location`)
+            if (answers.era && shop.category.includes(answers.era as Category))
+              reasons.push(`${answers.era.toLowerCase()} style`)
+            if (answers.dairy === "dairy-free" && shop.vibes.includes("dairy-free" as Vibe))
+              reasons.push("dairy-free options")
+            const matchLine = reasons.length > 0
+              ? `Matches: ${reasons.slice(0, 2).join(" · ")}`
+              : "Highly rated on the Trail"
+
+            return (
+              <Link
+                key={shop.slug}
+                href={`/shops/${shop.slug}`}
+                className="flex items-start gap-4 bg-white border border-[#E0CEBC] hover:border-[#E85D75] rounded-2xl p-5 transition-colors group"
+              >
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E85D75] to-[#F4845F] flex items-center justify-center text-white font-bold text-lg shrink-0 mt-0.5">
+                  {i + 1}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-serif font-bold text-[#2C1A0E] group-hover:text-[#E85D75] transition-colors leading-snug">
+                    {shop.shop}
+                  </h3>
+                  <p className="text-xs text-[#8B5E3C] mt-0.5 mb-1">
+                    Signature: {shop.name}
+                  </p>
+                  <p className="text-xs text-[#B09A8A]">{shop.city}, CA</p>
+                  <p className="text-xs text-[#E85D75] font-semibold mt-1.5">{matchLine}</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-[#D0B8A8] group-hover:text-[#E85D75] shrink-0 transition-colors mt-1" />
+              </Link>
+            )
+          })}
         </div>
 
-        <button
-          onClick={reset}
-          className="flex items-center gap-2 mx-auto text-sm text-[#8B5E3C] hover:text-[#E85D75] transition-colors"
-        >
-          <RotateCcw className="w-4 h-4" />
-          Retake quiz
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+          <Link
+            href="/shops"
+            className="inline-flex items-center justify-center gap-2 bg-[#2C1A0E] text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-[#5C3317] transition-colors"
+          >
+            Explore all shops
+          </Link>
+          <button
+            onClick={reset}
+            className="inline-flex items-center justify-center gap-2 bg-white border border-[#E0CEBC] text-[#5C3317] px-5 py-2.5 rounded-xl font-semibold text-sm hover:border-[#E85D75] transition-colors"
+          >
+            <RotateCcw className="w-4 h-4" />
+            Retake quiz
+          </button>
+        </div>
       </div>
     )
   }

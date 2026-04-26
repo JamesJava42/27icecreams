@@ -4,8 +4,8 @@ import { ArrowRight, Calendar } from "lucide-react"
 import { getAllBlogPosts } from "@/lib/blog"
 
 export const metadata: Metadata = {
-  title: "Blog — City Guides & Trail Routes",
-  description: "Ice cream city guides, road trip itineraries, and seasonal flavor reports for the California Ice Cream Trail.",
+  title: "Blog — Stories, Guides & Local Finds",
+  description: "City-by-city ice cream guides, craving-driven itineraries, and seasonal flavor reports from the California Ice Cream Trail.",
 }
 
 export default function BlogPage() {
@@ -15,13 +15,13 @@ export default function BlogPage() {
     <div className="max-w-4xl mx-auto px-4 py-10">
       <div className="mb-10">
         <p className="text-sm font-semibold text-[#E85D75] uppercase tracking-wider mb-1">
-          Trail Blog
+          Guides & Inspiration
         </p>
         <h1 className="font-serif text-4xl font-bold text-[#2C1A0E] mb-2">
-          City Guides & Trail Routes
+          Stories, Guides & Local Finds
         </h1>
         <p className="text-[#5C3317]">
-          Deep dives into California&#39;s ice cream cities, road trip itineraries, and seasonal guides.
+          City-by-city ice cream guides, craving-driven itineraries, and seasonal flavor reports from across California.
         </p>
       </div>
 
@@ -54,7 +54,7 @@ export default function BlogPage() {
               </h2>
               <p className="text-[#5C3317] text-sm leading-relaxed line-clamp-2">{post.description}</p>
               <div className="mt-4 flex items-center gap-1 text-sm font-semibold text-[#E85D75]">
-                Read guide
+                Read the guide
                 <ArrowRight className="w-4 h-4" />
               </div>
             </div>
