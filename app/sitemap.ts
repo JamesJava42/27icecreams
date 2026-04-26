@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next"
-import { getAllShopSlugs } from "@/lib/shops"
+import { getAllShopSlugs, getAllCities, cityToSlug } from "@/lib/shops"
 import { getAllBlogSlugs } from "@/lib/blog"
 
 const BASE = "https://californiaicecreamtrail.com"
@@ -19,6 +19,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
+  const cityUrls = getAllCities().map((city) => ({
+    url: `${BASE}/cities/${cityToSlug(city)}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }))
+
   return [
     { url: BASE, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
     { url: `${BASE}/shops`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
@@ -27,7 +34,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/quiz`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/cities`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     ...shopUrls,
     ...blogUrls,
+    ...cityUrls,
   ]
 }

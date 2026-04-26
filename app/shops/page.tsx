@@ -53,13 +53,16 @@ export default async function ShopsPage({ searchParams }: Props) {
     if (region && shop.region !== region) return false
     if (category && !shop.category.includes(category as Category)) return false
     if (vibe && !shop.vibes.includes(vibe as Vibe)) return false
-    if (
-      q &&
-      !shop.shop.toLowerCase().includes(q.toLowerCase()) &&
-      !shop.name.toLowerCase().includes(q.toLowerCase()) &&
-      !shop.city.toLowerCase().includes(q.toLowerCase())
-    )
-      return false
+    if (q) {
+      const ql = q.toLowerCase()
+      const hit =
+        shop.shop.toLowerCase().includes(ql) ||
+        shop.name.toLowerCase().includes(ql) ||
+        shop.city.toLowerCase().includes(ql) ||
+        shop.description.toLowerCase().includes(ql) ||
+        shop.vibes.some((v) => v.toLowerCase().includes(ql))
+      if (!hit) return false
+    }
     return true
   })
 

@@ -30,3 +30,19 @@ export function getFeaturedShops(): IceCreamItem[] {
 export function getShopsByRegion(region: string): IceCreamItem[] {
   return getAllShops().filter((s) => s.region === region)
 }
+
+export function cityToSlug(city: string): string {
+  return city.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
+}
+
+export function getAllCities(): string[] {
+  return [...new Set(getAllShops().map((s) => s.city))].sort()
+}
+
+export function getShopsByCity(city: string): IceCreamItem[] {
+  return getAllShops().filter((s) => s.city === city)
+}
+
+export function slugToCity(slug: string): string {
+  return getAllCities().find((c) => cityToSlug(c) === slug) ?? slug
+}

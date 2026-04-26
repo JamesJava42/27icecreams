@@ -81,7 +81,7 @@ export default function ShopFilters() {
             key={q}
             ref={inputRef}
             type="text"
-            placeholder="Search shops, cities…"
+            placeholder="Search shops, flavors, cities…"
             defaultValue={q}
             onKeyDown={(e) => {
               if (e.key === "Enter") submitSearch()

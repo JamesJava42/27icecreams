@@ -1,4 +1,7 @@
+"use client"
+
 import { ExternalLink, ShoppingBag, Truck, Globe } from "lucide-react"
+import { track } from "@vercel/analytics"
 import type { AffiliateLinks } from "@/lib/types"
 
 interface Props {
@@ -13,6 +16,7 @@ export default function AffiliateButton({ links, slug }: Props) {
         href={`/go/${slug}?dest=website`}
         target="_blank"
         rel="noopener noreferrer nofollow"
+        onClick={() => track("outbound_click", { slug, dest: "website" })}
         className="flex items-center justify-between w-full bg-[#2C1A0E] text-white px-4 py-3 rounded-xl font-semibold hover:bg-[#5C3317] transition-colors group"
       >
         <span className="flex items-center gap-2">
@@ -27,6 +31,7 @@ export default function AffiliateButton({ links, slug }: Props) {
           href={`/go/${slug}?dest=doordash`}
           target="_blank"
           rel="noopener noreferrer nofollow"
+          onClick={() => track("outbound_click", { slug, dest: "doordash" })}
           className="flex items-center justify-between w-full bg-[#FF3008] text-white px-4 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity group"
         >
           <span className="flex items-center gap-2">
@@ -42,6 +47,7 @@ export default function AffiliateButton({ links, slug }: Props) {
           href={`/go/${slug}?dest=ubereats`}
           target="_blank"
           rel="noopener noreferrer nofollow"
+          onClick={() => track("outbound_click", { slug, dest: "ubereats" })}
           className="flex items-center justify-between w-full bg-[#06C167] text-white px-4 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity group"
         >
           <span className="flex items-center gap-2">
@@ -57,6 +63,7 @@ export default function AffiliateButton({ links, slug }: Props) {
           href={`/go/${slug}?dest=goldbelly`}
           target="_blank"
           rel="noopener noreferrer nofollow"
+          onClick={() => track("outbound_click", { slug, dest: "goldbelly" })}
           className="flex items-center justify-between w-full bg-[#FF6B35] text-white px-4 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity group"
         >
           <span className="flex items-center gap-2">

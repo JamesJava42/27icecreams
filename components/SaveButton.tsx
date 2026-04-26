@@ -1,36 +1,23 @@
 "use client"
 
-import { useState } from "react"
+import { useSyncExternalStore } from "react"
 import { Heart } from "lucide-react"
-
-const STORAGE_KEY = "ca-ict-saved"
-
-function readSaved(): string[] {
-  if (typeof window === "undefined") return []
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]")
-  } catch {
-    return []
-  }
-}
+import { subscribeToSaved, getSavedSlugs, toggleSavedSlug } from "@/lib/saved"
 
 interface Props {
   slug: string
 }
 
 export default function SaveButton({ slug }: Props) {
-  const [saved, setSaved] = useState(() => readSaved().includes(slug))
-
-  function toggle() {
-    const current = readSaved()
-    const next = saved ? current.filter((s) => s !== slug) : [...current, slug]
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
-    setSaved(!saved)
-  }
+  const saved = useSyncExternalStore(
+    subscribeToSaved,
+    () => getSavedSlugs().includes(slug),
+    () => false
+  )
 
   return (
     <button
-      onClick={toggle}
+      onClick={() => toggleSavedSlug(slug)}
       className={`flex items-center gap-2 w-full justify-center py-2.5 px-4 rounded-xl border text-sm font-semibold transition-all ${
         saved
           ? "bg-[#FFF0F3] border-[#E85D75] text-[#E85D75]"

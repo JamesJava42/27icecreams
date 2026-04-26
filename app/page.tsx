@@ -113,7 +113,7 @@ export default function Home() {
         <div className="relative max-w-6xl mx-auto px-4 py-20 sm:py-28">
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider border border-white/20">
-              {total} Iconic Shops · 9 California Cities
+              {total} Iconic Shops · {Object.keys(shopsByCity).length} California Cities
             </div>
 
             <h1 className="font-serif text-4xl sm:text-6xl font-bold text-white leading-tight mb-4">

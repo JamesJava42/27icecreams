@@ -1,9 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useSyncExternalStore } from "react"
 import Link from "next/link"
-import { ChevronRight, RotateCcw } from "lucide-react"
+import { ChevronRight, Heart, RotateCcw } from "lucide-react"
+import { track } from "@vercel/analytics"
 import type { IceCreamItem, Vibe, Category } from "@/lib/types"
+import { subscribeToSaved, getSavedSlugs, toggleSavedSlug } from "@/lib/saved"
 
 interface Question {
   id: string
@@ -78,6 +80,12 @@ export default function FlavorQuiz({ shops }: Props) {
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [done, setDone] = useState(false)
 
+  const savedSlugs = useSyncExternalStore(
+    subscribeToSaved,
+    getSavedSlugs,
+    () => [] as string[]
+  )
+
   function answer(value: string) {
     const q = questions[current]
     const next = { ...answers, [q.id]: value }
@@ -86,6 +94,7 @@ export default function FlavorQuiz({ shops }: Props) {
       setCurrent((c) => c + 1)
     } else {
       setDone(true)
+      track("quiz_completed", { flavor: next.flavor, region: next.region })
     }
   }
 
@@ -118,31 +127,51 @@ export default function FlavorQuiz({ shops }: Props) {
               reasons.push(`${answers.era.toLowerCase()} style`)
             if (answers.dairy === "dairy-free" && shop.vibes.includes("dairy-free" as Vibe))
               reasons.push("dairy-free options")
-            const matchLine = reasons.length > 0
-              ? `Matches: ${reasons.slice(0, 2).join(" · ")}`
-              : "Highly rated on the Trail"
+            const matchLine =
+              reasons.length > 0
+                ? `Matches: ${reasons.slice(0, 2).join(" · ")}`
+                : "Highly rated on the Trail"
+
+            const isSaved = savedSlugs.includes(shop.slug)
 
             return (
-              <Link
+              <div
                 key={shop.slug}
-                href={`/shops/${shop.slug}`}
-                className="flex items-start gap-4 bg-white border border-[#E0CEBC] hover:border-[#E85D75] rounded-2xl p-5 transition-colors group"
+                className="relative bg-white border border-[#E0CEBC] hover:border-[#E85D75] rounded-2xl transition-colors group"
               >
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E85D75] to-[#F4845F] flex items-center justify-center text-white font-bold text-lg shrink-0 mt-0.5">
-                  {i + 1}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-serif font-bold text-[#2C1A0E] group-hover:text-[#E85D75] transition-colors leading-snug">
-                    {shop.shop}
-                  </h3>
-                  <p className="text-xs text-[#8B5E3C] mt-0.5 mb-1">
-                    Signature: {shop.name}
-                  </p>
-                  <p className="text-xs text-[#B09A8A]">{shop.city}, CA</p>
-                  <p className="text-xs text-[#E85D75] font-semibold mt-1.5">{matchLine}</p>
-                </div>
-                <ChevronRight className="w-5 h-5 text-[#D0B8A8] group-hover:text-[#E85D75] shrink-0 transition-colors mt-1" />
-              </Link>
+                {/* Save button — outside Link so nesting is valid */}
+                <button
+                  onClick={() => toggleSavedSlug(shop.slug)}
+                  aria-label={isSaved ? "Remove from saved" : "Save shop"}
+                  className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/90 hover:bg-white shadow-sm transition-colors"
+                >
+                  <Heart
+                    className={`w-4 h-4 transition-colors ${
+                      isSaved ? "fill-[#E85D75] text-[#E85D75]" : "text-[#8B5E3C]"
+                    }`}
+                  />
+                </button>
+
+                <Link
+                  href={`/shops/${shop.slug}`}
+                  className="flex items-start gap-4 p-5 block"
+                >
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E85D75] to-[#F4845F] flex items-center justify-center text-white font-bold text-lg shrink-0 mt-0.5">
+                    {i + 1}
+                  </div>
+                  <div className="flex-1 min-w-0 pr-8">
+                    <h3 className="font-serif font-bold text-[#2C1A0E] group-hover:text-[#E85D75] transition-colors leading-snug">
+                      {shop.shop}
+                    </h3>
+                    <p className="text-xs text-[#8B5E3C] mt-0.5 mb-1">
+                      Signature: {shop.name}
+                    </p>
+                    <p className="text-xs text-[#B09A8A]">{shop.city}, CA</p>
+                    <p className="text-xs text-[#E85D75] font-semibold mt-1.5">{matchLine}</p>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-[#D0B8A8] group-hover:text-[#E85D75] shrink-0 transition-colors mt-1" />
+                </Link>
+              </div>
             )
           })}
         </div>
@@ -167,7 +196,7 @@ export default function FlavorQuiz({ shops }: Props) {
   }
 
   const q = questions[current]
-  const progress = ((current) / questions.length) * 100
+  const progress = (current / questions.length) * 100
 
   return (
     <div className="max-w-lg mx-auto space-y-6">

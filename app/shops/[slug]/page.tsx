@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { MDXRemote } from "next-mdx-remote/rsc"
-import { MapPin, Clock, Star, ArrowLeft, ArrowRight } from "lucide-react"
+import { MapPin, Star, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { getShopBySlug, getAllShopSlugs, getAllShops } from "@/lib/shops"
 import AffiliateButton from "@/components/AffiliateButton"
@@ -103,23 +103,31 @@ export default async function ShopDetailPage({ params }: Props) {
 
               <p className="text-lg text-[#5C3317] leading-relaxed mb-5">{shop.description}</p>
 
-              <div className="flex flex-wrap gap-4 text-sm text-[#8B5E3C]">
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 shrink-0" />
-                  {shop.address || `${shop.city}, CA`}
-                </span>
+              <div className="grid grid-cols-2 gap-3 mt-5">
+                <div className="bg-[#F2E8DC] rounded-xl p-3">
+                  <p className="text-xs font-bold text-[#8B5E3C] uppercase tracking-wide mb-1 flex items-center gap-1">
+                    <MapPin className="w-3 h-3" /> Location
+                  </p>
+                  <p className="text-sm font-semibold text-[#2C1A0E] leading-snug">
+                    {shop.address || `${shop.city}, CA`}
+                  </p>
+                </div>
+                <div className="bg-[#F2E8DC] rounded-xl p-3">
+                  <p className="text-xs font-bold text-[#8B5E3C] uppercase tracking-wide mb-1">Price</p>
+                  <p className="text-sm font-bold text-[#2C1A0E]">{shop.priceRange}</p>
+                </div>
                 {shop.hours && (
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4 shrink-0" />
-                    {shop.hours}
-                  </span>
+                  <div className="bg-[#F2E8DC] rounded-xl p-3">
+                    <p className="text-xs font-bold text-[#8B5E3C] uppercase tracking-wide mb-1">Hours</p>
+                    <p className="text-sm font-semibold text-[#2C1A0E] leading-snug">{shop.hours}</p>
+                  </div>
                 )}
                 {shop.yearFounded && (
-                  <span className="flex items-center gap-1.5">
-                    🏛️ Est. {shop.yearFounded}
-                  </span>
+                  <div className="bg-[#F2E8DC] rounded-xl p-3">
+                    <p className="text-xs font-bold text-[#8B5E3C] uppercase tracking-wide mb-1">Est.</p>
+                    <p className="text-sm font-semibold text-[#2C1A0E]">{shop.yearFounded}</p>
+                  </div>
                 )}
-                <span className="font-bold text-[#5C3317]">{shop.priceRange}</span>
               </div>
             </div>
 
